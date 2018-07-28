@@ -24,6 +24,7 @@ func determineEncoding(r io.Reader) encoding.Encoding{
 }
 
 
+// 提取数据
 func Fetch(url string)([]byte, error){
 	resp, err := http.Get(url)
 	if err != nil{
