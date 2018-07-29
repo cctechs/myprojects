@@ -2,21 +2,21 @@ package main
 
 import (
 	"github.com/myprojects/crawler/engine"
-	"github.com/myprojects/crawler/zhenai/parser"
 	"github.com/myprojects/crawler/scheduler"
+	"github.com/myprojects/crawler/zhenai/parser"
 )
 
-func main()  {
+func main() {
 	//http://www.zhenai.com/zhenghun
 
 	e := engine.ConcurrentEngine{
-	    Scheduler:&scheduler.QueuedScheduler{},
-	   	WorkCount:1000,
+		Scheduler: &scheduler.QueuedScheduler{},
+		WorkCount: 1000,
 	}
 	e.Run(
 		engine.Request{
-			Url:"http://www.zhenai.com/zhenghun",
-			ParserFunc:parser.ParseCityList,
+			Url:        "http://www.zhenai.com/zhenghun",
+			ParserFunc: parser.ParseCityList,
 		})
 	//printCityList(all)
 }

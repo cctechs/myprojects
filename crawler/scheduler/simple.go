@@ -19,11 +19,9 @@ func (s *SimpleScheduler) Run() {
 	s.workerChan = make(chan engine.Request)
 }
 
-
-func (s* SimpleScheduler) Submit(r engine.Request) {
+func (s *SimpleScheduler) Submit(r engine.Request) {
 	//!tmp check why
 	go func() {
-		s.workerChan<-r
+		s.workerChan <- r
 	}()
 }
-

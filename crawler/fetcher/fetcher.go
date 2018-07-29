@@ -1,22 +1,22 @@
 package fetcher
 
 import (
-	"net/http"
-	"golang.org/x/text/transform"
-	"io/ioutil"
-	"io"
-	"golang.org/x/text/encoding"
 	"bufio"
-	"golang.org/x/net/html/charset"
 	"fmt"
+	"golang.org/x/net/html/charset"
+	"golang.org/x/text/encoding"
 	"golang.org/x/text/encoding/unicode"
+	"golang.org/x/text/transform"
+	"io"
+	"io/ioutil"
 	"log"
+	"net/http"
 	"time"
 )
 
-func determineEncoding(r io.Reader) encoding.Encoding{
+func determineEncoding(r io.Reader) encoding.Encoding {
 	bytes, err := bufio.NewReader(r).Peek(1024)
-	if err != nil{
+	if err != nil {
 		log.Printf("Fetch error:%v", err)
 		return unicode.UTF8
 	}
@@ -24,19 +24,19 @@ func determineEncoding(r io.Reader) encoding.Encoding{
 	return e
 }
 
-var rateLimiter = time.Tick(10*time.Millisecond)
+var rateLimiter = time.Tick(10 * time.Millisecond)
 
 // 提取数据
-func Fetch(url string)([]byte, error){
+func Fetch(url string) ([]byte, error) {
 
 	<-rateLimiter
 
 	resp, err := http.Get(url)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK{
+	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("wrong status code:%d", resp.StatusCode)
 	}
 

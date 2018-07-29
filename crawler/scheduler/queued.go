@@ -9,7 +9,7 @@ type QueuedScheduler struct {
 }
 
 func (s *QueuedScheduler) WorkerChan() chan engine.Request {
-	return  make(chan engine.Request)
+	return make(chan engine.Request)
 }
 
 func (s *QueuedScheduler) Submit(r engine.Request) {
@@ -20,8 +20,6 @@ func (s *QueuedScheduler) WorkerReady(w chan engine.Request) {
 	s.workChan <- w
 }
 
-
-
 func (s *QueuedScheduler) Run() {
 	s.workChan = make(chan chan engine.Request)
 	s.requestChan = make(chan engine.Request)
@@ -31,7 +29,7 @@ func (s *QueuedScheduler) Run() {
 		var workerQ []chan engine.Request
 		for {
 			var activeRequest engine.Request
-			var activeWorker chan engine.Request  // nil
+			var activeWorker chan engine.Request // nil
 			if len(requestQ) > 0 && len(workerQ) > 0 {
 				activeWorker = workerQ[0]
 				activeRequest = requestQ[0]

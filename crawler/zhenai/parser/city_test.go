@@ -6,10 +6,10 @@ import (
 
 func TestParseCity(t *testing.T) {
 	/*
-	engine.Run(engine.Request{
-		Url:`http://album.zhenai.com/u/1045553884`,
-		ParserFunc:ParseProfile,
-	})
+		engine.Run(engine.Request{
+			Url:`http://album.zhenai.com/u/1045553884`,
+			ParserFunc:ParseProfile,
+		})
 	*/
 
 	ParseProfile([]byte(`<td><span class="label">年龄：</span>35岁</td>`), "")

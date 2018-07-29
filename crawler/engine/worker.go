@@ -1,11 +1,11 @@
 package engine
 
 import (
-	"log"
 	"github.com/myprojects/crawler/fetcher"
+	"log"
 )
 
-func  worker(r Request)(ParseResult, error){
+func worker(r Request) (ParseResult, error) {
 	log.Printf("Fecthing %s", r.Url)
 	body, err := fetcher.Fetch(r.Url)
 	if err != nil {
@@ -16,14 +16,14 @@ func  worker(r Request)(ParseResult, error){
 	return parseResult, nil
 }
 
-func createWorker(in chan Request, out chan ParseResult, s ReadyNotifier){
+func createWorker(in chan Request, out chan ParseResult, s ReadyNotifier) {
 	go func() {
-		for{
+		for {
 			// tell schduler i am ready
 			s.WorkerReady(in)
 			request := <-in
 			result, err := worker(request)
-			if err != nil{
+			if err != nil {
 				continue
 			}
 			out <- result

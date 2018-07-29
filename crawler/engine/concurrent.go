@@ -10,7 +10,7 @@ type ConcurrentEngine struct {
 type Scheduler interface {
 	ReadyNotifier
 	Submit(Request)
-	WorkerChan()chan Request
+	WorkerChan() chan Request
 	Run()
 }
 
@@ -18,28 +18,28 @@ type ReadyNotifier interface {
 	WorkerReady(chan Request)
 }
 
-func (e* ConcurrentEngine) Run(seeds ...Request)  {
+func (e *ConcurrentEngine) Run(seeds ...Request) {
 
-	out :=make(chan ParseResult)
+	out := make(chan ParseResult)
 	e.Scheduler.Run()
 
-	for i := 0; i < e.WorkCount; i++{
+	for i := 0; i < e.WorkCount; i++ {
 		createWorker(e.Scheduler.WorkerChan(), out, e.Scheduler)
 	}
 
-	for _, r := range  seeds{
+	for _, r := range seeds {
 		e.Scheduler.Submit(r)
 	}
 
 	itemCount := 0
-	for{
+	for {
 		result := <-out
-		for _, item := range result.Items{
+		for _, item := range result.Items {
 			fmt.Printf("Got item:%v,  count:%v\n", item, itemCount)
 			itemCount++
 		}
 
-		for _, request := range result.Requests{
+		for _, request := range result.Requests {
 			e.Scheduler.Submit(request)
 		}
 	}

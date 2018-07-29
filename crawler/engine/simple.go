@@ -5,12 +5,11 @@ import (
 )
 
 type SimpleEngine struct {
-
 }
 
-func (e* SimpleEngine) Run(seeds ... Request){
+func (e *SimpleEngine) Run(seeds ...Request) {
 	var requests []Request
-	for _, r := range seeds{
+	for _, r := range seeds {
 		requests = append(requests, r)
 	}
 
@@ -19,7 +18,7 @@ func (e* SimpleEngine) Run(seeds ... Request){
 		requests = requests[1:]
 
 		parseResult, err := worker(r)
-		if err != nil{
+		if err != nil {
 			continue
 		}
 		requests = append(requests,
@@ -30,4 +29,3 @@ func (e* SimpleEngine) Run(seeds ... Request){
 		}
 	}
 }
-
