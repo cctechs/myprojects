@@ -1,5 +1,6 @@
 package engine
 
+// 解析结果
 type ParseResult struct {
 	Requests []Request
 	Items []interface{}
@@ -7,7 +8,7 @@ type ParseResult struct {
 
 type Request struct {
 	Url string
-	ParserFunc func([]byte) ParseResult
+	ParserFunc func([]byte) ParseResult // 解析url
 }
 
 func NilParser([]byte) ParseResult{

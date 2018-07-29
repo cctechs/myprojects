@@ -16,8 +16,7 @@ func  worker(r Request)(ParseResult, error){
 	return parseResult, nil
 }
 
-func createWorker(out chan ParseResult, s Scheduler){
-	in := make(chan Request)
+func createWorker(in chan Request, out chan ParseResult, s ReadyNotifier){
 	go func() {
 		for{
 			// tell schduler i am ready

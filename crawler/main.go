@@ -11,7 +11,7 @@ func main()  {
 
 	e := engine.ConcurrentEngine{
 	    Scheduler:&scheduler.QueuedScheduler{},
-	   	WorkCount:100,
+	   	WorkCount:1000,
 	}
 	e.Run(
 		engine.Request{
