@@ -16,10 +16,6 @@ func ParseCityList(contents []byte) engine.ParseResult {
 	result := engine.ParseResult{}
 	matchs := reg.FindAllSubmatch(contents, -1)
 	for _, m := range matchs {
-		//!tmp
-		if len(result.Items) > 3{
-			break
-		}
 		result.Items = append(result.Items, string(m[2]))
 		result.Requests = append(result.Requests,engine.Request{
 			Url:string(m[1]),

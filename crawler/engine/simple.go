@@ -1,11 +1,14 @@
 package engine
 
 import (
-	"github.com/myprojects/crawler/fetcher"
 	"log"
 )
 
-func Run(seeds ... Request){
+type SimpleEngine struct {
+
+}
+
+func (e* SimpleEngine) Run(seeds ... Request){
 	var requests []Request
 	for _, r := range seeds{
 		requests = append(requests, r)
@@ -15,14 +18,10 @@ func Run(seeds ... Request){
 		r := requests[0]
 		requests = requests[1:]
 
-		log.Printf("Fecthing %s", r.Url)
-
-		body, err := fetcher.Fetch(r.Url)
-		if err != nil {
-			log.Printf("Fetcher:err, url:%s, %v", r.Url, err)
+		parseResult, err := worker(r)
+		if err != nil{
 			continue
 		}
-		parseResult := r.ParserFunc(body)
 		requests = append(requests,
 			parseResult.Requests...)
 
@@ -31,3 +30,4 @@ func Run(seeds ... Request){
 		}
 	}
 }
+

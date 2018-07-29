@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"golang.org/x/text/encoding/unicode"
 	"log"
+	"time"
 )
 
 func determineEncoding(r io.Reader) encoding.Encoding{
@@ -23,12 +24,16 @@ func determineEncoding(r io.Reader) encoding.Encoding{
 	return e
 }
 
+var rateLimiter = time.Tick(10*time.Millisecond)
 
 // 提取数据
 func Fetch(url string)([]byte, error){
+
+	<-rateLimiter
+
 	resp, err := http.Get(url)
 	if err != nil{
-		panic(err)
+		return nil, err
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK{
