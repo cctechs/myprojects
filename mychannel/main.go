@@ -45,6 +45,34 @@ func (this *MyServer) run() {
 	}
 }
 
+func checkChannel(){
+	mychannel := make(chan []int, 3)
+
+	pendingQuereis := 0
+
+	for i := 0; i < 3; i++ {
+		pendingQuereis++
+		go func(n int) {
+			data := []int{1, 2, 3}
+			mychannel <- data
+		}(i)
+	}
+
+	for{
+		if 0 == pendingQuereis{
+			break
+		}
+
+		for k, v := range <-mychannel{
+			fmt.Printf("%v, %v\n", k, v)
+		}
+		pendingQuereis--
+	}
+
+
+	fmt.Println("finished")
+}
+
 func main() {
 	data := make(map[string]string)
 	for i := 0; i < 10; i++ {
@@ -57,6 +85,10 @@ func main() {
 	n := svr.getCount()
 	close(svr.quit)
 	fmt.Println("count:", n)
+
+	fmt.Printf("///////////////////////////\n")
+	checkChannel()
+
 
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
