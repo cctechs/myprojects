@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 )
+//https://segmentfault.com/a/1190000009666888
 
 func handler(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "text/plain")
