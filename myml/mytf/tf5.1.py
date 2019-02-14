@@ -30,15 +30,22 @@ cost = tf.reduce_mean(-tf.reduce_sum(y * tf.log(pred), reduction_indices=1))
 
 learning_rate = 0.01
 
+# 梯度下降算法
 optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(cost)
 
+# 训练次数
 training_epochs = 25
+
 batch_size = 100
 
 display_step = 1
 
+saver = tf.train.Saver()
+
 with tf.Session() as sess:
+    # 初始化变量
     sess.run(tf.global_variables_initializer())
+
     for epoch in range(training_epochs):
         avg_cost = 0
         total_batch = int(mnist.train.num_examples / batch_size)
@@ -52,4 +59,11 @@ with tf.Session() as sess:
 
     print ('finished')
 
+    # 测试model
+    correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
+    accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+    print ('Accurracy', accuracy.eval({x: mnist.test.images, y: mnist.test.labels}))
 
+    model_path = 'log/521model.ckpt'
+    save_path = saver.save(sess, model_path)
+    print ('Model saved in file:%s' % save_path)

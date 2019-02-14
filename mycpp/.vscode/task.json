@@ -1,0 +1,21 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "c++",
+            "command": "clang++",
+            "type": "shell",
+            "args": [
+                "main.cpp",
+                "-std=c++11",
+                "-g"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        }
+    ]
+}
