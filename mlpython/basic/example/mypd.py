@@ -46,6 +46,9 @@ def test_01():
     print '\nreset value:\n', df2
     print '\nabs():\n', df2.abs()
     
+    obj = pd.Series([2,3,4,5,1,3,4,2,3,4])
+    print obj
+    print obj.value_counts().sort_index()
 
 
 
