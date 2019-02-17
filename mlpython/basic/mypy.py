@@ -1,81 +1,26 @@
 #coding=utf-8
 
-class BaseClass:
-    __pwd = 'this is privated'
-    _account = 'this is protected'
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
-        
-    def show(self):
-        print 'BaseCalss:', self.name, self.age
-
-class DriveClass(BaseClass):
-    def show(self):
-        print 'DriveCalss:', self.name, self.age
-        print self.__doc__
-        print self.__class__
-        print self._account
-
-def test_class():
-    d = DriveClass('name', 'age')
-    d.show()
-    del d
-
-class MyClass:
-    x = 5
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
-        self.myfunc()
-    
-    def myfunc(self):
-        print 'this is a test'
-
-def my_list():
-    list1 = ['123', '456', 'qwe']
-    print list1
+import numpy as np
 
 
 def test_01():
-    print 'hello'
-    my_function(p2='qwe')
-    p1 = MyClass('weber',23)
-    print p1.x, p1.age, p1.name
-    my_list()
+    a = [3,2,4,7,4,8]
+    print a
+    b = sorted(a)
+    print b
+    print a
 
-    # 列表
-    l1 = []
-    l1.append('zzzgoogle')
-    l1.append('hello')
-    l1.append('world')
-    print 'this is l1:',l1
-    del l1[1]
-    print 'after del:',l1
-    print 'max:', max(l1)
-    # 元组
-    print '\n========================================='
-    tup1 =  ('aaa', 'ccc', 'bbb')
-    print 'tup1:', tup1
-    tup2 = (50,)
-    print 'tup2:',tup2
-    #del tup2
-    #print 'after del:', tup2
-    print 'len(tup1):', len(tup1)
-    print '\n========================================='
-    dict = {}
-    dict['name'] = 'weber'
-    print dict
-    print dict['name']
-    print dict['123']
+    dd = {1,2,3,4}
+    for i in range(len(dd)):
+        print i
 
-    print '\n\n\n\n'
+def test_02():
+    a = 0
+    b = 1
+    c = 2
 
-def my_function(p1='001', p2='002', p3='003'):
-    print p1
-    print p2
-    print p3
+    print('test{0} is {1} and {2}').format(b,a,c)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     #test_01()
-    test_class()
+    test_02()
